@@ -1,0 +1,75 @@
+{% extends 'base2.html' %}
+
+<title>{% block title %}Malaria System:: Patient List{% endblock %}</title>
+
+{% block content %}
+
+
+    <ol class="breadcrumb">
+        <li><a href="#"><span>Patient</span></a></li>
+        <li><a href="#"><span>Details</span></a></li>
+        <li class="active"><span>List </span></li>
+    </ol>
+
+
+
+
+
+
+    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Add
+        New Patient
+    </button>
+    <table class="table table-responsive" id="table">
+        <thead class="alert-primary">
+
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Contact Details</th>
+            <th>Address</th>
+
+            <th>Action</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for patient in patients %}
+            <tr>
+                <td>{{ patient.firstname }}</td>
+                <td>{{ patient.lastname }}</td>
+                <td>{{ patient.age }}</td>
+                {% if patient.gender == 1 %}
+                    <td>M</td>
+                    {% else %}
+                    <td>F</td>
+                {% endif %}
+
+                <td>{{ patient.contact }}</td>
+                <td>{{ patient.address }}</td>
+
+                <td>
+                    <center><a class="btn btn-sm btn-warning edit"  href="#" >Edit</a>
+                        <a class="btn btn-sm btn-primary delete" href="{% url 'view_patient_record' patient.id %}">View</a>
+                    </center>
+                </td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+
+
+    <!-- /.box-body -->
+
+
+
+
+
+
+
+{% endblock %}
