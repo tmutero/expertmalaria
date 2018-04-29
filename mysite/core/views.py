@@ -26,8 +26,8 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 def create_patient(request):
-
-
+    if not request.user.is_authenticated:
+        return redirect('home')
     patient = Patient(firstname=request.POST['firstname'], lastname=request.POST['lastname'],
                        contact=request.POST['contact'],address=request.POST['address'],
                       gender=request.POST['gender'],birth_date=request.POST['birth_date'])
@@ -37,6 +37,8 @@ def create_patient(request):
 
 
 def read_patient(request):
+    if not request.user.is_authenticated:
+        return redirect('home')
     patients = Patient.objects.all()
 
     print(patients)
@@ -58,6 +60,8 @@ def update_patient(request, id):
     return redirect('/read_patient/')
 
 def view_patient_record(request, id):
+    if not request.user.is_authenticated:
+        return redirect('home')
     print("-------------------------",id)
     patient=Patient.objects.get(id=id)
    # patient_record=PatientRecords.objects.filter(patient_id=id)
@@ -69,6 +73,8 @@ def view_patient_record(request, id):
     return render(request,'patient/view.html',contex)
 
 def create_patient_clinical(request):
+    if not request.user.is_authenticated:
+        return redirect('home')
     patient_id=request.POST.get('patient_id')
 
 
