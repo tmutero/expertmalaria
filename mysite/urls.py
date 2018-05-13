@@ -16,4 +16,8 @@ urlpatterns = [
     url(r'^edit/update_patient/(?P<id>\d+)$', core_views.update_patient, name='update_patient'),
     url(r'^view_patient_record(?P<id>\d+)$', core_views.view_patient_record, name='view_patient_record'),
     url(r'^create_patient_clinical$', core_views.create_patient_clinical, name='create_patient_clinical'),
+
+    # url(r'^process/(?P<precord_id>\d+)/(?P<id>\d)/$', core_views.process, name='process'),
+    url(r'^process', core_views.process, name='process'),
+
 ]

@@ -1,0 +1,33 @@
+{% extends 'base2.html' %}
+
+<title>{% block title %}Malaria System:: Diagnosis Page{% endblock %}</title>
+{% block content %}
+
+
+
+    <div class="">
+        <a href="{% url 'view_patient_record' patient.id %} "><h4>Patient
+            Name- {{ patient.firstname }} {{ patient.lastname }}</h4></a>
+    </div>
+    <div class="panel panel-success">
+        <div class="panel-heading">Results</div>
+        <div class="panel-body">
+            {% if predict == 1 %}
+                <div class="alert alert-danger">
+                    <h4>Malaria Found</h4>
+                </div>
+
+            {% else %}
+                <div class="alert alert-success">
+                    <strong>Healthy No Signs of Malaria</strong>
+                </div>
+
+            {% endif %}
+
+
+        </div>
+    </div>
+
+
+
+{% endblock %}

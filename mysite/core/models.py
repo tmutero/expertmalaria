@@ -17,6 +17,16 @@ class Patient(models.Model):
         import datetime
         return int((datetime.date.today() - self.birth_date).days / 365.25)
 
+class PatientRecords(models.Model):
+
+    body_mass=models.FloatField(default=False)
+    temperature=models.FloatField(default=False)
+    diastolic=models.IntegerField(default=False)
+    systolic=models.IntegerField(default=False)
+    date_created=models.DateField(auto_now=True)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+
+
 class Prescribe(models.Model):
     patient=models.ForeignKey('Patient', on_delete=models.CASCADE)
     drug = models.ForeignKey('Drug', on_delete=models.CASCADE)

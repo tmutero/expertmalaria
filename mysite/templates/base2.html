@@ -1,19 +1,20 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<link rel="icon" type="image/png" href="assets/img/favicon.ico">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8"/>
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'admin/assets/img/favicon.ico' %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
 
-	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <meta name="viewport" content="width=device-width" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
+    <meta name="viewport" content="width=device-width"/>
 
 
     <!-- Bootstrap core CSS     -->
     <title>{% block title %}Malaria Expert System{% endblock %}</title>
-        {% load static %}
-    <link href="{% static 'admin/assets/css/bootstrap.min.css' %}" rel="stylesheet" />
+    {% load static %}
+    <link href="{% static 'admin/assets/css/bootstrap.min.css' %}" rel="stylesheet"/>
 
 
     <!-- Animation library for notifications   -->
@@ -24,30 +25,66 @@
 
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="{% static 'admin/assets/css/demo.css' %}" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="{% static 'admin/assets/css/jquery.dataTables.css' %}">
+    <link href="{% static 'admin/assets/css/demo.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/assets/css/jquery.dataTables.css' %}">
 
 
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
-    <link href="{% static 'admin/assets/css/pe-icon-7-stroke.css' %}" rel="stylesheet" />
+    <link href="{% static 'admin/assets/css/pe-icon-7-stroke.css' %}" rel="stylesheet"/>
+    <style>
+        .slidecontainer {
+            width: 100%;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 25px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+    </style>
 
 </head>
 <body>
 
 <div class="wrapper">
- {% load static %}
-    <div class="sidebar" data-color="purple" data-image="{% static 'admin/assets/img/sidebar-5.jpg' %}">
+    {% load static %}
+    <div class="sidebar" data-color="blue" data-image="{% static 'admin/assets/img/sidebar-5.jpg' %}">
 
-    <!--
+        <!--
 
-        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
-        Tip 2: you can also add an image using data-image tag
+            Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+            Tip 2: you can also add an image using data-image tag
 
-    -->
+        -->
 
-    	<div class="sidebar-wrapper">
+        <div class="sidebar-wrapper">
             <div class="logo">
                 <a href="#" class="simple-text">
                     Malaria System
@@ -61,13 +98,13 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                  <li>
+                <li>
                     <a href="{% url 'read_patient' %}">
                         <i class="pe-7s-users"></i>
                         <p>Patients </p>
                     </a>
                 </li>
-                  <li>
+                <li>
                     <a href="#">
                         <i class="pe-7s-network"></i>
                         <p>Disease</p>
@@ -90,14 +127,15 @@
 
 
             </ul>
-    	</div>
+        </div>
     </div>
 
     <div class="main-panel">
         <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#navigation-example-2">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -110,7 +148,7 @@
                         <li>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-dashboard"></i>
-								<p class="hidden-lg hidden-md">Dashboard</p>
+                                <p class="hidden-lg hidden-md">Dashboard</p>
                             </a>
                         </li>
 
@@ -119,17 +157,17 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                           <a href="">
-                               <p>Account</p>
+                            <a href="">
+                                <p>Account</p>
                             </a>
                         </li>
 
                         <li>
-                             <a href="{% url 'logout' %}">
+                            <a href="{% url 'logout' %}">
                                 <p>Log out</p>
                             </a>
                         </li>
-						<li class="separator hidden-lg"></li>
+                        <li class="separator hidden-lg"></li>
                     </ul>
                 </div>
             </div>
@@ -139,14 +177,9 @@
         <div class="content">
             <div class="container-fluid">
 
-             {% block content %}
+                {% block content %}
 
-             {% endblock %}
-
-
-
-
-
+                {% endblock %}
 
 
             </div>
@@ -157,7 +190,9 @@
             <div class="container-fluid">
 
                 <p class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="#">Hastings </a>, together we achieve more.
+                    &copy;
+                    <script>document.write(new Date().getFullYear())</script>
+                    <a href="#">Hastings </a>, together we achieve more.
                 </p>
             </div>
         </footer>
@@ -165,7 +200,7 @@
     </div>
 </div>
 
- <div id="myModal" class="modal fade" role="dialog">
+<div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -204,15 +239,15 @@
 
                                 </select>
                             </div>
-                             <div class="form-group" data-provide="datepicker">
-                                            <label>Date of Birth</label>
-                                            <div class="input-group date" data-provide="datepicker">
-                                                <input type="date" class="form-control" name="birth_date">
-                                                <div class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-th"></span>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <div class="form-group" data-provide="datepicker">
+                                <label>Date of Birth</label>
+                                <div class="input-group date" data-provide="datepicker">
+                                    <input type="date" class="form-control" name="birth_date">
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-th"></span>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label>Contact</label>
                                 <input type="text" class="form-control" placeholder="Enter contact number "
@@ -243,32 +278,291 @@
             </div>
         </div>
     </div>
+</div>
+ <div id="clinicalDetails" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Patient Clinical Record</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form" action="create_patient_clinical" method="POST"
+                              enctype="multipart/form-data" id="clinical">
+                            {% csrf_token %}
+                            <input type="hidden" name="patient_id" value="{{ patient.id }}">
+
+                            <div class="box-body">
+                                <div class="form-group">
+
+                                    <label for="bodymass">Body Mass</label>
+                                    <div class="slidecontainer">
+                                        <input type="range" min="10" max="150" value="20" class="slider" id="myRange"
+                                               name="bodymass" required>
+                                        <p>Body Mass: <span id="demo"></span></p>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Body Temperature</label>
+                                    <input type="number" min="36" max="44" class="form-control" name="temperature"
+                                           id="temperature"
+                                           placeholder="Enter temperature"
+                                           required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="diastolic">Diastolic Pressure</label>
+                                    <input type="number" min="40" max="100" class="form-control" name="diastolic"
+                                           id="diastolic"
+                                           placeholder="Enter diastolic pressure"
+                                           required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="systolic">Systolic Pressure</label>
+                                    <input type="number" min="40" max="190" class="form-control" name="systolic"
+                                           id="systolic"
+                                           placeholder="Enter systolic pressure"
+                                           required>
+                                </div>
+
+                            </div>
+                            <!-- /.box-body -->
+
+                            <div class="box-footer">
+                                <button type="submit" onclick="check()" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<div class="modal fade" id="diagnose" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Patient Symptoms</h4>
+
+            </div>
+            <div class="modal-body">
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading"><font size="2">Choose Symptom</font></div>
+                    <div class="panel-body">
+                        <form id="myForm" role="form" action="process" method="POST"
+                              enctype="multipart/form-data" id="clinical">
+                            {% csrf_token %}
+                            <input type="hidden" name="patient_id" value="{{ patient.id }}">
+                            <input type="hidden" name="patientRecord_id" value=" {{ patient_record.id }}">
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Weakness</label><br>
+                                    <label class="radio-inline"><input type="radio" id="weakness" value="1"
+                                                                       name="weakness">Yes</label>
+                                    <label class="radio-inline"><input type="radio" id="weakness" value="0"
+                                                                       name="weakness" checked>No</label>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Body Pain</label><br>
+                                    <label class="radio-inline"><input type="radio" id="bodyPain" value="1"
+                                                                       name="bodyPain">Yes</label>
+                                    <label class="radio-inline"><input type="radio" id="bodyPain" value="0"
+                                                                       name="bodyPain" checked>No</label>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Cold</label><br>
+                                    <label class="radio-inline"><input type="radio" id="cold" value="1" name="cold">Yes</label>
+                                    <label class="radio-inline"><input type="radio" id="cold" value="0" name="cold"
+                                                                       checked>No</label>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Chills</label><br>
+                                    <label class="radio-inline"><input type="radio" id="chills" value="1" name="chills">Yes</label>
+                                    <label class="radio-inline"><input type="radio" id="chills" value="0" name="chills"
+                                                                       checked>No</label>
+
+
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Headache</label><br>
+                                    <label class="radio-inline"><input type="radio" id="headache" value="1"
+                                                                       name="headache">Yes</label>
+                                    <label class="radio-inline"><input type="radio" id="headache" value="0"
+                                                                       name="headache" checked>No</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Muscle Pain</label><br>
+                                    <label class="radio-inline"><input type="radio" id="musclePain" value="1"
+                                                                       name="musclePain">Yes</label>
+                                    <label class="radio-inline"><input type="radio" id="musclePain" value="0"
+                                                                       name="musclePain" checked>No</label>
+
+                                </div>
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Vomiting</label><br>
+                                    <label class="radio-inline"><input type="radio" id="vomiting" value="1"
+                                                                       name="vomiting">Yes</label>
+                                    <label class="radio-inline"><input type="radio" id="vomiting" value="0"
+                                                                       name="vomiting"
+                                                                       checked>No</label>
+
+
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Joint Pain</label><br>
+                                    <label class="radio-inline"><input type="radio" id="jointPain" value="1"
+                                                                       name="jointPain">Yes</label>
+                                    <label class="radio-inline"><input type="radio" id="jointPain" value="0"
+                                                                       name="jointPain" checked>No</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Convulision</label><br>
+                                    <label class="radio-inline"><input type="radio" id="convulision" value="1"
+                                                                       name="convulision">Yes</label>
+                                    <label class="radio-inline"><input type="radio" id="convulision" value="0"
+                                                                       name="convulision" checked>No</label>
+
+                                </div>
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Diarrhea</label><br>
+                                    <label class="radio-inline"><input type="radio" id="diarrhea" value="1"
+                                                                       name="diarrhea">Yes</label>
+                                    <label class="radio-inline"><input type="radio" id="diarrhea" value="0"
+                                                                       name="diarrhea"
+                                                                       checked>No</label>
+
+
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Sweating</label><br>
+                                    <label class="radio-inline"><input type="radio" id="sweating" value="1"
+                                                                       name="sweating">Yes</label>
+                                    <label class="radio-inline"><input type="radio" id="sweating" value="0"
+                                                                       name="sweating" checked>No</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Coma</label><br>
+                                    <label class="radio-inline"><input type="radio" id="coma" value="1"
+                                                                       name="coma">Yes</label>
+                                    <label class="radio-inline"><input type="radio" id="coma" value="0"
+                                                                       name="coma" checked>No</label>
+
+                                </div>
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Cough</label><br>
+                                    <label class="radio-inline"><input type="radio" id="cough" value="1" name="cough">Yes</label>
+                                    <label class="radio-inline"><input type="radio" id="cough" value="0" name="cough"
+                                                                       checked>No</label>
+
+
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Abnormal Pain</label><br>
+                                    <label class="radio-inline"><input type="radio" id="abnormalPain" value="1"
+                                                                       name="abnormalPain">Yes</label>
+                                    <label class="radio-inline"><input type="radio" id="abnormalPain" value="0"
+                                                                       name="abnormalPain" checked>No</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Fever</label><br>
+                                    <label class="radio-inline"><input type="radio" id="fever" value="1"
+                                                                       name="fever">Yes</label>
+                                    <label class="radio-inline"><input type="radio" id="fever" value="0"
+                                                                       name="fever" checked>No</label>
+
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
     </div>
+</div>
 </body>
 
-    <!--   Core JS Files   -->
-    <script src="{% static 'admin/assets/js/jquery.3.2.1.min.js' %}" type="text/javascript"></script>
-	<script src="{% static 'admin/assets/js/bootstrap.min.js' %}" type="text/javascript"></script>
+<!--   Core JS Files   -->
+<script src="{% static 'admin/assets/js/jquery.3.2.1.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'admin/assets/js/bootstrap.min.js' %}" type="text/javascript"></script>
 
-	<!--  Charts Plugin -->
-	<script src="{% static 'admin/assets/js/chartist.min.js' %}"></script>
+<!--  Charts Plugin -->
+<script src="{% static 'admin/assets/js/chartist.min.js' %}"></script>
 
-    <!--  Notifications Plugin    -->
-    <script src="{% static 'admin/assets/js/bootstrap-notify.js' %}"></script>
+<!--  Notifications Plugin    -->
+<script src="{% static 'admin/assets/js/bootstrap-notify.js' %}"></script>
 
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!--  Google Maps Plugin    -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 
-    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
-	<script src="{% static 'admin/assets/js/light-bootstrap-dashboard.js?v=1.4.0' %}"></script>
+<!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+<script src="{% static 'admin/assets/js/light-bootstrap-dashboard.js?v=1.4.0' %}"></script>
 
-	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
-	<script src="{% static 'admin/assets/js/demo.js' %}"></script>
+<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+<script src="{% static 'admin/assets/js/demo.js' %}"></script>
 <script src="{% static 'admin/assets/js/jquery.dataTables.js' %}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#table').DataTable();
     });
+</script>
+<script>
+    function check() {
+        var x = document.forms["clinical"]["temperature"].value;
+        if (x == "") {
+            alert("Body Temperature must be filled out");
+            return false;
+        }
+        var y = document.forms["clinical"]["diastolic"].value;
+        if (y == "") {
+            alert("Diastolic must be filled out");
+            return false;
+        }
+
+
+    }
+</script>
+<script>
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value;
+
+    slider.oninput = function () {
+        output.innerHTML = this.value;
+    }
 </script>
 
 
