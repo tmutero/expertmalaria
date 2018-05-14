@@ -65,7 +65,8 @@
 
                 </div>
                 <div class="tab-pane fade" id="clinical">
-                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#clinicalDetails">Add
+                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                            data-target="#clinicalDetails">Add
                         New Clinical Details
                     </button>
                     <table class="table table-responsive">
@@ -79,7 +80,6 @@
                             <th>BP Status</th>
 
 
-
                         </tr>
                         </thead>
                         <tbody>
@@ -91,26 +91,22 @@
                                 <td>{{ patient_record.temperature }}</td>
                                 <td>{{ patient_record.diastolic }}</td>
                                 <td>{{ patient_record.systolic }}</td>
-                             {% if  patient_record.systolic > 140 %}
+                                {% if  patient_record.systolic > 140 %}
                                     <td><span class="label label-danger">High BP</span></td>
-                                {% elif patient_record.systolic < 120 and  patient_record.systolic < 139%}
-                                    <td> <span class="label label-warning">Pre-High BP</span></td>
+                                {% elif patient_record.systolic < 120 and  patient_record.systolic < 139 %}
+                                    <td><span class="label label-warning">Pre-High BP</span></td>
                                 {% else %}
                                     <td><span class="label label-info">Normal</span></td>
                                 {% endif %}
 
-                            <td>
-{#                                <a class="btn btn-sm btn-success edit"#}
-{#                                                       href="{% url 'process'  patient_record.id patient.id %}">Diagnosis</a>#}
-                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#diagnose">Diagnose
-                                          </button>
-                                <input type="text" hidden="" value="{{ patient_record.id }}" name="id"></input>
-                                 </td>
-
-
-
-
-
+                                <td>
+                                    {#                                <a class="btn btn-sm btn-success edit"#}
+                                    {#                                                       href="{% url 'process'  patient_record.id patient.id %}">Diagnosis</a>#}
+                                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                                            data-target="#diagnose">Diagnose
+                                    </button>
+                                    <input type="text" hidden="" value="{{ patient_record.id }}" name="id"></input>
+                                </td>
 
 
                             </tr>
@@ -120,9 +116,29 @@
                     </table>
 
 
-
                 </div>
                 <div class="tab-pane fade" id="diagnosis">
+                    <table class="table table-responsive" id="table">
+                        <thead class="alert-default">
+                        <tr>
+                            <th>Malaria Type</th>
+                            <th>Drug Prescribed</th>
+                            <th>Drug Formulation</th>
+                            <th>Date Prescribed</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for diagnosis in diagnosis %}
+                            <tr>
+                                <td>{{ diagnosis.disease.name }}</td>
+                                <td>{{ diagnosis.drug.name }}</td>
+                                <td>{{ diagnosis.drug.formulation }}</td>
+                                <td>{{ diagnosis.date_created }}</td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
 
                 </div>
 

@@ -19,5 +19,15 @@ urlpatterns = [
 
     # url(r'^process/(?P<precord_id>\d+)/(?P<id>\d)/$', core_views.process, name='process'),
     url(r'^process', core_views.process, name='process'),
+    url(r'^create_disease$', core_views.create_disease, name='create_disease'),
+    url(r'^read_disease$', core_views.read_disease, name='read_disease'),
+    url(r'^prescribeDrug$', core_views.prescribeDrug, name='prescribeDrug'),
+    url(r'^create_drug$', core_views.create_drug, name='create_drug'),
+    url(r'^read_drug$', core_views.read_drug, name='read_drug'),
+
+    #reports
+    url(r'^report$', core_views.report, name='report'),
+    url(r'^diagnosed$', core_views.diagnosed, name='diagnosed')
+
 
 ]

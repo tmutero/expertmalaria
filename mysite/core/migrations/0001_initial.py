@@ -12,37 +12,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='Drug',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(blank=True, max_length=500)),
-                ('date_created', models.DateField(auto_now=True)),
-                ('type', models.CharField(blank=True, max_length=200)),
-                ('formulation', models.CharField(blank=True, max_length=200)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Patient',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('patient_number', models.CharField(blank=True, max_length=500)),
-                ('firstname', models.CharField(blank=True, max_length=500)),
-                ('lastname', models.CharField(blank=True, max_length=500)),
-                ('birth_date', models.DateField(blank=True, null=True)),
-                ('gender', models.IntegerField()),
-                ('address', models.CharField(blank=True, max_length=500)),
-                ('contact', models.CharField(blank=True, max_length=500)),
-                ('date_created', models.DateField(auto_now=True)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Prescribe',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('date_created', models.DateField(auto_now=True)),
-                ('drug', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='core.Drug')),
-                ('patient', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='core.Patient')),
-            ],
-        ),
+
     ]

@@ -29,11 +29,6 @@
             <th>Gender</th>
             <th>Contact Details</th>
             <th>Address</th>
-
-
-
-
-
             <th>Action</th>
 
         </tr>
@@ -54,7 +49,7 @@
                 <td>{{ patient.address }}</td>
 
                 <td>
-                    <center><a class="btn btn-sm btn-warning edit"  href="#" >Edit</a>
+                    <center>
                         <a class="btn btn-sm btn-primary delete" href="{% url 'view_patient_record' patient.id %}">View</a>
                     </center>
                 </td>

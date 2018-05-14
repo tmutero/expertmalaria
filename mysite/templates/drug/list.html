@@ -1,0 +1,55 @@
+{% extends 'base2.html' %}
+
+<title>{% block title %}Malaria System:: Drug List{% endblock %}</title>
+
+{% block content %}
+
+
+    <ol class="breadcrumb">
+        <li><a href="#"><span>Drug</span></a></li>
+        <li><a href="#"><span>Details</span></a></li>
+        <li class="active"><span>List </span></li>
+    </ol>
+
+
+
+
+
+
+    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#addDrug">Add
+        New Drug
+    </button>
+    <table class="table table-responsive" id="table">
+        <thead class="alert-primary">
+
+        <tr>
+            <th>Drug Name</th>
+            <th>Type</th>
+            <th>Formulation</th>
+            <th>Date Created</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for drug in drugs %}
+            <tr>
+                <td>{{ drug.name }}</td>
+                <td>{{ drug.type }}</td>
+                <td>{{ drug.formulation }}</td>
+                <td>{{ drug.date_created }}</td>
+
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+{% endblock %}

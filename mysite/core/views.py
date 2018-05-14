@@ -9,9 +9,10 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
+from django.db.models import Count, Q
 
 from mysite.core.forms import SignUpForm
-from mysite.core.models import Patient, PatientRecords
+from mysite.core.models import Patient, PatientRecords, Disease, Prescribe, Drug
 
 
 @login_required
@@ -73,10 +74,11 @@ def view_patient_record(request, id):
     print("-------------------------",id)
     patient=Patient.objects.get(id=id)
     patient_record=PatientRecords.objects.filter(patient_id=id)
+    diagnosis=Prescribe.objects.filter(patient_id=id)
 
 
     contex={'patient':patient,
-            'patient_record':patient_record,
+            'patient_record':patient_record,'diagnosis':diagnosis
 
             }
     return render(request,'patient/view.html',contex)
@@ -126,27 +128,6 @@ def process(request):
     chills = request.POST['chills']
     headache = request.POST['headache']
     musclePain = request.POST['musclePain']
-
-    print(weakness)
-
-    print(int(vomiting))
-    print(jointPain)
-    print(fever)
-    print(convulision)
-    print(diarrhea)
-    print(sweating)
-    print(coma)
-    print(abnormalPain)
-    print(cough)
-    print(bodyPain)
-    print(cold)
-    print(chills)
-    print(headache)
-    print(musclePain)
-
-
-
-
 
     data = pd.read_csv("D:/Projects/Final Systems/malaria/mysite/uploads/dataset.csv")
     data=data[[
@@ -208,7 +189,84 @@ def process(request):
 
 
     print("=============================================================",predict)
+    if predict !=0:
+        disease=Disease.objects.get(id=predict)
+        prescribe = Prescribe(patient_id=patient_id, disease_id=disease.id
+                                        )
+        prescribe.save()
 
-    context = {'predict': predict, 'patient': patient, }
+    else:
+        disease="Health"
+    drugs=Drug.objects.all()
+
+
+
+    context = {'predict': predict, 'patient': patient, 'disease':disease,'drugs':drugs }
     template = loader.get_template('diagnosis.html')
     return HttpResponse(template.render(context, request))
+
+def create_disease(request):
+    if not request.user.is_authenticated:
+        return redirect('home')
+    disease = Disease(name=request.POST['name'])
+
+    disease.save()
+    return redirect('read_disease')
+
+
+def read_disease(request):
+    if not request.user.is_authenticated:
+        return redirect('home')
+    diseases = Disease.objects.all()
+    context = {'diseases': diseases}
+    return render(request, 'disease/list.html', context)
+
+def create_drug(request):
+    if not request.user.is_authenticated:
+        return redirect('home')
+    drug = Drug(name=request.POST['name'],type=request.POST['type'],formulation=request.POST['formulation'])
+    drug.save()
+    return redirect('read_drug')
+
+
+def read_drug(request):
+    if not request.user.is_authenticated:
+        return redirect('home')
+    drugs = Drug.objects.all()
+
+    context = {'drugs': drugs}
+    return render(request, 'drug/list.html', context)
+
+
+def prescribeDrug(request):
+
+    if not request.user.is_authenticated:
+        return redirect('home')
+
+    disease_id = request.POST.get('disease_id')
+    patient_id = request.POST.get('patient_id')
+    print(disease_id)
+    print(patient_id)
+    drug=request.POST['drug']
+    print("Drug ----------------------------------",drug)
+    Prescribe.objects.filter(Q(patient_id=patient_id) & Q(disease_id=disease_id)).update(drug_id=drug)
+
+
+    return redirect('view_patient_record', patient_id)
+
+
+def report(request):
+    if not request.user.is_authenticated:
+        return redirect('home')
+    context={'':""}
+    return  render(request, 'report/list.html',context)
+
+def diagnosed(request):
+    if not request.user.is_authenticated:
+        return redirect('home')
+
+    diagnosed=Prescribe.objects.all()
+
+
+    context = {'diagnosed': diagnosed}
+    return render(request, 'report/diagnosed.html', context)

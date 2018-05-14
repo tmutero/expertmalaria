@@ -58,14 +58,14 @@
             appearance: none;
             width: 25px;
             height: 25px;
-            background: #4CAF50;
+            background: #003faf;
             cursor: pointer;
         }
 
         .slider::-moz-range-thumb {
             width: 25px;
             height: 25px;
-            background: #4CAF50;
+            background: #003faf;
             cursor: pointer;
         }
     </style>
@@ -93,7 +93,7 @@
 
             <ul class="nav">
                 <li class="active">
-                    <a href="dashboard.html">
+                    <a href="{% url 'home' %}">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard</p>
                     </a>
@@ -105,9 +105,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{% url 'read_disease' %}">
                         <i class="pe-7s-network"></i>
-                        <p>Disease</p>
+                        <p>Malaria Type</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'read_drug' %}">
+                        <i class="pe-7s-eyedropper"></i>
+                        <p>Drug</p>
                     </a>
                 </li>
 
@@ -118,7 +124,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{% url 'report' %}">
                         <i class="pe-7s-news-paper"></i>
                         <p>Report</p>
                     </a>
@@ -279,67 +285,233 @@
         </div>
     </div>
 </div>
- <div id="clinicalDetails" class="modal fade" role="dialog">
-            <div class="modal-dialog">
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Patient Clinical Record</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form role="form" action="create_patient_clinical" method="POST"
-                              enctype="multipart/form-data" id="clinical">
-                            {% csrf_token %}
-                            <input type="hidden" name="patient_id" value="{{ patient.id }}">
+<div id="addDisease" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-                            <div class="box-body">
-                                <div class="form-group">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Malaria Disease Type</h4>
+            </div>
+            <div class="modal-body">
 
-                                    <label for="bodymass">Body Mass</label>
-                                    <div class="slidecontainer">
-                                        <input type="range" min="10" max="150" value="20" class="slider" id="myRange"
-                                               name="bodymass" required>
-                                        <p>Body Mass: <span id="demo"></span></p>
-                                    </div>
+                <form class="form-horizontal" action="create_disease" method="POST">
+                    {% csrf_token %}
 
-                                </div>
+                    <div class="box box-warning">
 
+                        <!-- /.box-header -->
+                        <div class="box-body">
 
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Body Temperature</label>
-                                    <input type="number" min="36" max="44" class="form-control" name="temperature"
-                                           id="temperature"
-                                           placeholder="Enter temperature"
-                                           required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="diastolic">Diastolic Pressure</label>
-                                    <input type="number" min="40" max="100" class="form-control" name="diastolic"
-                                           id="diastolic"
-                                           placeholder="Enter diastolic pressure"
-                                           required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="systolic">Systolic Pressure</label>
-                                    <input type="number" min="40" max="190" class="form-control" name="systolic"
-                                           id="systolic"
-                                           placeholder="Enter systolic pressure"
-                                           required>
-                                </div>
-
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>Malaria Type Name </label>
+                                <input type="text" class="form-control" placeholder="Enter malaria name"
+                                       name="name" required>
                             </div>
-                            <!-- /.box-body -->
 
                             <div class="box-footer">
-                                <button type="submit" onclick="check()" class="btn btn-primary">Submit</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                <button type="submit" class="btn btn-info pull-right">Submit</button>
                             </div>
-                        </form>
+
+                        </div>
+                        <!-- /.box-body -->
                     </div>
-                </div>
+
+                </form>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="addDrug" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add New Drug</h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal" action="create_drug" method="POST">
+                    {% csrf_token %}
+
+                    <div class="box box-warning">
+
+                        <!-- /.box-header -->
+                        <div class="box-body">
+
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>Drug name </label>
+                                <input type="text" class="form-control" placeholder="Enter drug name"
+                                       name="name">
+                            </div>
+                            <div class="form-group">
+                                <label>Formulation</label>
+                                <select class="form-control" name="formulation">
+                                    <option value="">Select</option>
+                                    <option value="Tablet">Tablet</option>
+                                    <option value="Solution">Solution</option>
+                                    <option value="Injection">Injection</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Type</label>
+                                <select class="form-control" name="type">
+                                    <option value="">Select</option>
+                                    <option value="Anti-Biotic">Anti-Biotic</option>
+                                    <option value="Pain Suppressor">Pain Suppressor</option>
+
+                                </select>
+                            </div>
+
+
+                            <div class="box-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-info pull-right">Submit</button>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+
+                </form>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+<div id="prescribeDrug" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Prescribe Drugs</h4>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-horizontal" action="prescribeDrug" method="POST"
+                      enctype="multipart/form-data" id="prescribeDrug">
+                    {% csrf_token %}
+
+                    <input type="hidden" name="patient_id" value="{{ patient.id }}">
+
+                    <input type="hidden" name="disease_id" value="{{ disease.id }}">
+
+
+                    <div class="box box-warning">
+
+                        <!-- /.box-header -->
+                        <div class="box-body">
+
+                            <!-- text input -->
+
+{% load widget_tweaks %}
+                            {% for drug in drugs %}
+                                <div class="form-group">
+
+                                        <label><input type="radio" value="{{ drug.id }}" name="drug"> {{ drug.name }}</label>
+
+                                </div>
+                            {% endfor %}
+
+
+
+                            <div class="box-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                <button type="submit" class="btn btn-info pull-right">Submit</button>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+
+                </form>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="clinicalDetails" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Patient Clinical Record</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" action="create_patient_clinical" method="POST"
+                      enctype="multipart/form-data" id="clinical">
+                    {% csrf_token %}
+                    <input type="hidden" name="patient_id" value="{{ patient.id }}">
+
+                    <div class="box-body">
+                        <div class="form-group">
+
+                            <label for="bodymass">Body Mass</label>
+                            <div class="slidecontainer">
+                                <input type="range" min="10" max="150" value="20" class="slider" id="myRange"
+                                       name="bodymass" required>
+                                <p>Body Mass: <span id="demo"></span></p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Body Temperature</label>
+                            <input type="number" min="36" max="44" class="form-control" name="temperature"
+                                   id="temperature"
+                                   placeholder="Enter temperature"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="diastolic">Diastolic Pressure</label>
+                            <input type="number" min="40" max="100" class="form-control" name="diastolic"
+                                   id="diastolic"
+                                   placeholder="Enter diastolic pressure"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="systolic">Systolic Pressure</label>
+                            <input type="number" min="40" max="190" class="form-control" name="systolic"
+                                   id="systolic"
+                                   placeholder="Enter systolic pressure"
+                                   required>
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="submit" onclick="check()" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
+</div>
 
 <div class="modal fade" id="diagnose" role="dialog">
     <div class="modal-dialog modal-lg">
